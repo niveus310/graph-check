@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<style>
+.chart div {
+  font: 16px sans-serif;
+  background-color: blue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+  height:18px;
+}
+</style>
+
+<input type="button" value = "VALUE" onclick="getvalue()";/>
+<input type="button" value = "SORT" onclick="dosort()";/>
+<br><br><br>
+<div id="div1" class="chart"></div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var arr = [];
+
+function getvalue()
+        {
+   
+   var value= prompt("Please enter the value");
+   
+   if(value!= null)
+	{ arr.push(value);} 
+   
+   var x = d3.scale.linear()
+    .domain([0, d3.max(arr)])
+    .range([0, 420]);
+
+   d3.select(".chart")
+     .selectAll("div")
+     .data(arr)
+     .enter().append("div")
+     .style("width", function(d) { return 10*(d) + "px"; })
+     .text(function(d) { return d; }); 
+       
+       }
+
+function dosort()
+       {
+   
+   clearBox('div1')
+
+   arr.sort(function(a, b){return a-b})
+  
+   var x = d3.scale.linear()
+    .domain([0, d3.max(arr)])
+    .range([0, 420]);
+
+   d3.select(".chart")
+    .selectAll("div")
+    .data(arr)
+    .enter().append("div")
+    .style("width", function(d) { return 10*(d) + "px"; })
+    .text(function(d) { return d; }); 
+    
+      }
+
+function clearBox(elementID)
+      {document.getElementById(elementID).innerHTML = "";}
+
+</script>
+</body>
+</html>
